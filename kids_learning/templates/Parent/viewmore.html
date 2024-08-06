@@ -1,0 +1,69 @@
+
+{% load static %}
+{%  include 'Parent/header.html' %}
+  <!-- about section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading ">
+        Student Details
+      </h2><br><br>
+      <p class="text-center">
+      <div class="container">
+      <div class="row">
+        <div class="col-5">
+       <table style="width:500px;">
+
+        <tbody>
+        <tr><th>Child Photo</th><td><img src="/images/{{details.child_image}}" style="width:150px;height:;"></td></tr>
+         <tr><th>Child Name</th><td>{{details.child_name}}</td></tr>
+          <tr><th>Branch Name</th><td>{{details.daycare_id.branch_name}}</td></tr>
+          <tr><th>Location Name</th><td>{{details.daycare_id.location_id.locationname}}</td></tr>
+          <tr><th>Daycare Email</th><td>{{details.daycare_id.daycare_email}}</td></tr>
+         <tr><th>Daycare Contact No</th><td>{{details.daycare_id.daycare_contact}}</td></tr>
+         <tr><th>Application Status</th><td><b style="color:red;">{{details.application_status}}</b></td></tr>
+        </tbody>
+    </table></div>
+
+
+        </div></div>
+      </div>
+      </p>
+
+      <div class="d-flex justify-content-center mt-5">
+        <a href="{% url 'payment' id=details.application_id %}" class="call_to-btn  ">
+
+          <span>
+          Make Payment
+          </span>
+          <img src="{% static 'Daycare/images/right-arrow.png' %}" alt="">
+        </a>&nbsp;&nbsp;
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- landing section -->
+  <section class="landing_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading">
+        Free Multipurpose Responsive
+
+      </h2>
+      <h2 class="main-heading number_heading">
+        Landing Page 2019
+
+      </h2>
+      <p class="landing_detail text-center">
+
+
+      </p>
+    </div>
+  </section>
+
+  <!-- end landing section -->
+{%  include 'Parent/footer.html' %}
+
+

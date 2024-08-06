@@ -1,0 +1,49 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+
+    <!--Main-->
+    <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+
+        <div class="flex flex-col">
+            <form action="{% url 'editlocation' location.locationid %}" method="post">
+                            {% csrf_token %}
+               <select name="districtid" class="form-control">
+
+                                {% for d in district %}
+                                {% if d.districtid == location.district.districtid %}
+                                <option value="{{d.districtid}}" selected>{{d.districtname}}</option>
+                                {% else %}
+                                <option value="{{d.districtid}}">{{d.districtname}}</option>
+                                {% endif %}
+                                {% endfor %}
+
+                            </select><br>
+
+                            <input type="text" name="locationname" placeholder="locationname" value="{{location.locationname}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                                   style="width:400px;"><br>
+                            <button type="submit" class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full" style="width:200px;">update</button>
+                        </form>
+
+            <br> <br> <br>
+
+            <!-- Card Sextion Starts Here -->
+<!--            <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">-->
+
+<!--                &lt;!&ndash; card &ndash;&gt;-->
+
+<!--                <div class="rounded overflow-hidden shadow bg-white mx-2 w-full">-->
+<!--                    <div class="px-6 py-2 border-b border-light-grey">-->
+<!--                        <div class="font-bold text-xl">District</div>-->
+<!--                    </div>-->
+
+                <!-- /card -->
+
+            </div>
+            <!-- /Cards Section Ends Here -->
+
+
+        </div>
+    </main>
+    <!--/Main-->
+</div>
+{%  include "Admin/footer.html" %}

@@ -1,0 +1,77 @@
+
+{% load static %}
+{%  include 'Parent/header.html' %}
+  <!-- about section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading ">
+        Payment
+      </h2><br><br>
+      <p class="text-center">
+      <div class="container">
+      <div class="row">
+        <div class="col-5">
+
+<form action="{% url 'payment' aob.application_id %}" method="post">
+    {% csrf_token %}
+ <table class="table table-bordered table-condensed">
+
+                <tr>
+
+               <th>Admission Fee</th><td><b style="color:red;">{{dob.application_fee}}</b></td></tr>
+                <input type="hidden" value="{{grand_total}}" name="gtotal">
+               <tr><th>Card No</th><td><input type="number" name="cardno" placeholder="CardNo" required></td></tr>
+                  <tr><th>Card Name</th><td><input type="text" name="cardname" placeholder="CardName" required></td></tr>
+               <tr><th>CVV</th><td><input type="number" name="cvv" placeholder="CVV" required></td></tr>
+<input type="hidden" name="daycareid" value="{{dob.daycare_id}}">
+                <tr>  <th></th><td><input type="submit" style="color:Green;"value="Make Payment" required></td>
+
+            </tr>
+
+ </table><br/></form>
+ </div>
+
+
+        </div></div>
+      </div>
+      </p>
+
+<!--      <div class="d-flex justify-content-center mt-5">-->
+<!--        <a href="" class="call_to-btn  ">-->
+
+<!--          <span>-->
+<!--           Pay-->
+<!--          </span>-->
+<!--          <img src="{% static 'Daycare/images/right-arrow.png' %}" alt="">-->
+<!--        </a>&nbsp;&nbsp;-->
+
+<!--      </div>-->
+    </div>
+  </section>
+
+
+ 
+
+  <!-- landing section -->
+  <section class="landing_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading">
+        Free Multipurpose Responsive
+
+      </h2>
+      <h2 class="main-heading number_heading">
+        Landing Page 2019
+
+      </h2>
+      <p class="landing_detail text-center">
+        There are many variations of passages of Lorem Ipsum available, but the majority There are many variations of
+        passages of Lorem Ipsum available, but the majority h
+
+      </p>
+    </div>
+  </section>
+
+  <!-- end landing section -->
+{%  include 'Parent/footer.html' %}
+
+

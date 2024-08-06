@@ -1,0 +1,62 @@
+
+{% load static %}
+{%  include 'parent/header.html' %}
+
+  <!-- about section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading ">
+        Profile
+      </h2>
+      <p class="text-center">
+          
+      </p>
+      <div class="about_img-box ">
+        <table class="table table-striped">
+          <thead>
+          <tr><th>Your Name</th><td>{{parent.parentname}}</td></tr>
+          <th>Email</th><td>{{parent.email}}</td></tr>
+            <th>Contact no.</th><td>{{parent.phno}}</td></tr>
+            <th>Address</th><td>{{parent.address}}</td></tr>
+          </tr>
+          </thead>
+
+         <table class="table table-striped">
+       </div>
+ <div class="d-flex justify-content-center mt-5">
+        <a href="{% url 'editprofile' %}" class="call_to-btn  ">
+
+          <span>
+          Edit Profile
+          </span>
+          <img src="{% static 'Daycare/images/right-arrow.png' %}" alt="">
+        </a>&nbsp;&nbsp;
+    </div>
+    </section>
+
+
+
+
+  <!-- landing section -->
+  <section class="landing_section layout_padding">
+    <div class="container">
+      <h2 class="main-heading">
+        Free Multipurpose Responsive
+
+      </h2>
+      <h2 class="main-heading number_heading">
+        Landing Page 2019
+
+      </h2>
+      <p class="landing_detail text-center">
+        There are many variations of passages of Lorem Ipsum available, but the majority There are many variations of
+        passages of Lorem Ipsum available, but the majority h
+
+      </p>
+    </div>
+  </section>
+
+  <!-- end landing section -->
+{%  include 'parent/footer.html' %}
+
+

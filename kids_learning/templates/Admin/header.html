@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+{% if not request.session.loginid %}
+<script>
+alert('Login First');
+window.location.replace('/login');
+</script>
+{% endif %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
+    <!-- Css -->
+    <link rel="stylesheet" href="{% static 'Admin/dist/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin/dist/all.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+    <title>Dashboard | Tailwind Admin</title>
+</head>
+
+<body>
+<!--Container -->
+<div class="mx-auto bg-grey-400">
+    <!--Screen-->
+    <div class="min-h-screen flex flex-col">
+        <!--Header Section Starts Here-->
+        <header class="bg-nav">
+            <div class="flex justify-between">
+                <div class="p-1 mx-3 inline-flex items-center">
+                    <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
+                    <h1 class="text-white p-2">KID'S HUB</h1>
+                </div>
+                <div class="p-1 flex flex-row items-center">
+<!--                    <a href="https://github.com/tailwindadmin/admin" class="text-white p-2 mr-2 no-underline hidden md:block lg:block">Github</a>-->
+
+
+ <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full" href="{% static 'Admin/dist/styles.css' %}" alt="">
+                    <a href="{% url 'logout' %}" onclick="profileToggle()" class="fa fa-sign-out" aria-hidden="true">Logout</a>
+                    <div id="ProfileDropDown" class="rounded hidden shadow-md bg-white absolute pin-t mt-12 mr-1 pin-r">
+                        <ul class="list-reset">
+                          <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">My account</a></li>
+                          <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Notifications</a></li>
+                          <li><hr class="border-t mx-2 border-grey-ligght"></li>
+                          <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--/Header-->
+        <div class="flex flex-1">
+            <!--Sidebar-->
+            <aside id="sidebar" class="bg-side-nav w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block">
+
+                <ul class="list-reset flex flex-col">
+                    <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white">
+                        <a href="{% url 'adminhome' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-tachometer-alt float-left mx-2"></i>
+                            Dashboard
+                            <span><i class="fas fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'district' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-wpforms float-left mx-2"></i>
+                            District Registration
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'location' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-grip-horizontal float-left mx-2"></i>
+                            Location Registration
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'category' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-table float-left mx-2"></i>
+                            category
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                     <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'subcategory' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-table float-left mx-2"></i>
+                            Subcategory
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'daycare' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-uikit float-left mx-2"></i>
+                            Daycare Registration
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="w-full h-full py-3 px-2">
+                        <a href="{% url 'pie_chart' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="far fa-file float-left mx-2"></i>
+                            Category Pie-chart
+                            <span><i class="fa fa-angle-down float-right"></i></span>
+                        </a>
+                         <li class="w-full h-full py-3 px-2">
+                        <a href="{% url 'pie_chart1' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="far fa-file float-left mx-2"></i>
+                            student Pie-chart
+                            <span><i class="fa fa-angle-down float-right"></i></span>
+                        </a>
+                            <li class="w-full h-full py-3 px-2">
+                        <a href="{% url 'export_excel' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="far fa-file float-left mx-2"></i>
+                            report of parent
+                            <span><i class="fa fa-angle-down float-right"></i></span>
+                        </a>
+
+                        <li class="w-full h-full py-3 px-2">
+                        <a href="{% url 'export_excel1' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="far fa-file float-left mx-2"></i>
+                            report of student
+                            <span><i class="fa fa-angle-down float-right"></i></span>
+                        </a>
+                     <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'location_application' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-grip-horizontal float-left mx-2"></i>
+                            Location Based Applications Pie Chart                             <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                     <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="{% url 'datewise_application' %}"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fas fa-grip-horizontal float-left mx-2"></i>
+                            DateWise Application Excel Chart                             <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+<!--                            <li class="border-t border-light-border w-full h-full px-2 py-3">-->
+<!--                                <a href="register.html"-->
+<!--                                   class="mx-4 font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">-->
+<!--                                    Register Page-->
+<!--                                    <span><i class="fa fa-angle-right float-right"></i></span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="border-t border-light-border w-full h-full px-2 py-3">-->
+<!--                                <a href="404.html"-->
+<!--                                   class="mx-4 font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">-->
+<!--                                    404 Page-->
+<!--                                    <span><i class="fa fa-angle-right float-right"></i></span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+                        </ul>
+                    </li>
+                </ul>
+
+            </aside>
+            <!--/Sidebar-->

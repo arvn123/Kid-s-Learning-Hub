@@ -1,0 +1,219 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+<script src="{% static 'admin/src/jquery-3.3.1.min.js' %}"></script>
+<script>
+	$(document).ready(function()
+	{
+<!--alert("haii");-->
+$.ajaxSetup({
+		headers : {"X-CSRFToken" : '{{csrf_token}}'}
+		});
+		$("#district").change(function()
+		{
+
+		var c=$(this).val();
+		alert(c);
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filllocation" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#location').empty();
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+                   var row = "<option value='"+val.locationid+"'>"+val.locationname+"</option>";
+					      $('#location').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+		$("#district1").change(function()
+		{
+
+		var c=$(this).val();
+		alert(c);
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filllocation" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#location1').empty();
+				var row="<option>Select Location</option>";
+                    $('#location1').append(row);
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+
+                   var row = "<option value='"+val.locationid+"'>"+val.locationname+"</option>";
+					      $('#location1').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+		$("#location1").change(function()
+		{
+
+		var c=$(this).val();
+		alert(c);
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filldaycare" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#daycare').empty();
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+                     var id=val.daycare_id;
+                                        var deleteUrl = '{% url "deletedaycare" 0 %}'.replace('0', id);
+                    var editUrl = '{% url "editdaycare" 0 %}'.replace('0', id);
+                    var row = "<tr><td>" + i++ + "</td><td>" + val.branch_name + "</td><td>" + val.daycare_email + "</td><td>" + val.daycare_contact + "</td><td>" + val.description + "</td><td>" + val.login_id__username + "</td><td>" + val.login_id__password + "</td><td><img src='/images/"+val.daycare_image+"' style='width:100px;height:100px;' ></td><td>" + val.daycare_map + "</td><td>" + val.application_fee + "</td><td>" + val.monthly_fee + "</td><td>" + val.daycare_landmark + "</td><td>" + val.daycare_pincode + "</td><td><a href='"+editUrl+"'>Edit</a></td> <td><a href='"+deleteUrl+"'>Delete</a></td></tr>";
+
+					      $('#daycare').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+
+	});
+</script>
+
+<!--Main-->
+<main class="bg-white-300 flex-1 p-3 overflow-hidden">
+<thead><h1>Daycare Registration</h1></thead>
+        <br>
+    <div class="flex flex-col">
+        <form action="{% url 'daycare' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            District: <select name="district" id="district">
+             <option value="0">Select District</option>
+                    {% for d in district %}
+
+                    <option value="{{d.districtid}}">{{d.districtname}}</option>
+                    {% endfor %}
+        </select><br>
+            Location <select id="location" name="location">
+             <option value="0">Select Location</option>
+        </select><br>
+            <label class="block text-sm text-gray-00" for="cus_username">Daycare Name</label><input type="text" name="daycarename" placeholder="TimeKids" readonly class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Branch Name</label> <input type="text" name="branch_name" placeholder="Branch Name" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Email</label><input type="email" name="email" placeholder="Email" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Contact No.</label><input type="text" name="daycare_contact" placeholder="CONTACT NO" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Description</label><textarea name="description" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"required></textarea>
+                  <br>
+            Image:<input type="file" name="image" style='width:100px;height:100px;' class="form-control" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Username</label><input type="text" name="username" placeholder="username" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Password</label><input type="password" name="password" placeholder="password" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Landmark</label><input type="text" name="landmark" placeholder="Landmark" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Pincode</label><input type="text" name="pincode" placeholder="Pincode" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Map Location Address</label><input type="text" name="map" placeholder="MapLocationAddress" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;" required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">Admission Fee</label> <input type="text" name="applicationfees" placeholder="Application Fees" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"required><br>
+            <br>
+            <label class="block text-sm text-gray-00" for="cus_username">MOnthly Fees</label><input type="text" name="monthlyfees" placeholder="Monthly Fees" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"required><br>
+            <br>
+            <button type="submit"
+                    class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full"
+                    style="width:200px;" required>Submit
+            </button>
+        </form>
+
+
+        <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+
+            <!-- card -->
+
+            <div class="rounded overflow-hidden shadow bg-white mx-2 w-full">
+                <div class="px-6 py-2 border-b border-light-grey">
+                    <div class="font-bold text-xl"> Daycare</div>
+                </div>
+                <div class="table-responsive">
+                    <select name="district" id="district1">
+                         <option value="0">Select District</option>
+                    {% for d in district %}
+
+                    <option value="{{d.districtid}}">{{d.districtname}}</option>
+                    {% endfor %}
+                    </select>
+                    <select name="location" id="location1">
+                        <option value="0">Select Location</option>
+
+                    </select>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Branch Name</th>
+                            <th> Email</th>
+                            <th>contact No</th>
+                            <th>description</th>
+
+                            <th>username</th>
+                            <th>password</th>
+                            <th>Image</th>
+                            <th>Map Address</th>
+                            <th>Application Fees</th>
+                             <th>Monthly Fees</th>
+                            <th>Landmark</th>
+                            <th>Pincode</th>
+
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody id="daycare">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+        <br>
+        <br>
+        <br></tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    </div>
+</main>
+</div>
+{% include "Admin/footer.html" %}

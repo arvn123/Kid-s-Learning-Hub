@@ -1,0 +1,78 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+<script src="{% static 'admin/src/jquery-3.3.1.min.js' %}"></script>
+<script>
+	$(document).ready(function()
+	{
+<!--alert("haii");-->
+$.ajaxSetup({
+		headers : {"X-CSRFToken" : '{{csrf_token}}'}
+		});
+		$("#district").change(function()
+		{
+
+		var c=$(this).val();
+		alert(c);
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filllocation" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#location').empty();
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+                    var row = "<option value='"+val.locationid+"'>" + val.locationname + "</option>";
+					      $('#location').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+	});
+</script>
+
+    <!--Main-->
+    <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+
+        <div class="flex flex-col">
+            <form action="{% url 'editbranch' branch.branchid %}" method="post">
+                            {% csrf_token %}
+
+               <select name="districtid" class="form-control" id="district">
+                            <option>Select District</option>
+                                {% for d in district %}
+                                {% if d.districtid == branch.locationid.districtid.districtid %}
+                                <option value="{{d.districtid}}" selected>{{d.districtname}}</option>
+                                {% else %}
+                                <option value="{{d.districtid}}">{{d.districtname}}</option>
+                                {% endif %}
+                                {% endfor %}
+
+                            </select><br><br>
+                 <select name="locationid" class="form-control" id="location">
+
+                                {% for d in location  %}
+                                {% if d.locationid == branch.locationid.locationid %}
+                                <option value="{{d.locationid}}" selected>{{d.locationname}}</option>
+                                {% else %}
+                                <option value="{{d.locationid}}">{{d.locationname}}</option>
+                                {% endif %}
+                                {% endfor %}
+
+                            </select><br>
+
+                             <button type="submit" class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full" style="width:200px;">update</button>
+                        </form>
+
+            <br> <br> <br>
+            </div>
+
+        </div>
+    </main>
+    <!--/Main-->
+</div>
+{%  include "Admin/footer.html" %}

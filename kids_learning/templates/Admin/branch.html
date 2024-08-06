@@ -1,0 +1,182 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+<script src="{% static 'admin/src/jquery-3.3.1.min.js' %}"></script>
+<script>
+	$(document).ready(function()
+	{
+<!--alert("haii");-->
+$.ajaxSetup({
+		headers : {"X-CSRFToken" : '{{csrf_token}}'}
+		});
+		$("#districtid").change(function()
+		{
+
+		var c=$(this).val();
+<!--		alert(c);-->
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filllocation" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#locid').empty();
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+                    var row="<option value='"+val.locationid+"'>"+val.locationname+"</option>";
+                        $('#locid').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+		$("#district").change(function()
+		{
+
+		var c=$(this).val();
+<!--		alert(c);-->
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "filllocation" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#location').empty();
+				var row="<option>Select Location</option>";
+				 $('#location').append(row);
+                    // Populate table with new data
+                    $.each(data,function(key,val) {
+                    var row="<option value='"+val.locationid+"'>"+val.locationname+"</option>";
+                        $('#location').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+		$("#location").change(function()
+		{
+
+		var c=$(this).val();
+<!--		alert(c);-->
+		var i=1;
+		$.ajax({
+				type:"POST",
+				url : '{% url "fillbranch" %}',
+				data : {did :c},
+				dataType:"json",
+				success : function(data)
+				{
+				$('#branch').empty();
+				 // Populate table with new data
+                    $.each(data,function(key,val) {
+                    var id=val.branchid;
+                                        var deleteUrl = '{% url "deletebranch" 0 %}'.replace('0', id);
+                    var editUrl = '{% url "editbranch" 0 %}'.replace('0', id);
+                    var row = "<tr><td></td><td>" + i++ + "</td><td>" + val.dsycareid__daycarename + "</td><td><a href='"+editUrl+"'>Edit</a></td> <td><a href='"+deleteUrl+"'>Delete</a></td></tr>";
+
+                        $('#branch').append(row);
+
+
+                    });
+                 }
+                 });
+		});
+	});
+</script>
+
+    <!--Main-->
+    <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+<div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+        <div class="flex flex-col">
+            <form action="{% url 'branch' %}" method="POST">
+                {% csrf_token %}
+                <select name="districtid" id="districtid" class="Form-control">
+                    <option value="0">Select District</option>
+                    {% for d in district %}
+
+                    <option value="{{d.districtid}}">{{d.districtname}}</option>
+                    {% endfor %}
+                </select><br>
+
+                <br>
+                 <select name="locationid" id="locid" class="Form-control">
+                    <option>select location</option>
+                 </select><br>
+                <br>
+                <select name="daycareid" id="daycareid" class="Form-control">
+                    <option value="0">Select daycare</option>
+                    {% for d in daycare %}
+
+                    <option value="{{d.daycareid}}">{{d.daycarename}}</option>
+                    {% endfor %}
+                </select><br>
+
+<button type="submit" class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full" style="width:200px;">Submit</button>
+
+
+            <!-- Card Sextion Starts Here -->
+            <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+
+                <!-- card -->
+
+                <div class="rounded overflow-hidden shadow bg-white mx-2 w-full">
+                    <div class="px-6 py-2 border-b border-light-grey">
+                        <div class="font-bold text-xl">branch</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><select name="district" id="district">
+                                     <option value="0">Select District</option>
+                    {% for d in district %}
+
+                    <option value="{{d.districtid}}">{{d.districtname}}</option>
+                    {% endfor %}
+                                </select>
+                                <select id="location" name="location">
+                                <option>Select Locatioin</option>
+                                </select></th>
+                                <th>Sl No</th>
+                                <th>branch Name</th>
+
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody id="branch">
+                            {% for cob in branch %}
+                            <tr>
+                                <td></td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ loc.branchname }}</td>
+                                <td><a href="{% url 'editbranch' id=loc.branchid %}" class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white"><i class="fas fa-edit"></i>>Edit</a></td>
+                                <td><a href="{% url 'deletebranch' id=loc.branchid %}" onclick="return confirm('Are you sure want to delete??')"
+                                       class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500"><i class="fas fa-trash"></i>>Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /card -->
+
+            </div>
+            <!-- /Cards Section Ends Here -->
+
+           </div>
+                    </div>
+                </div>
+        </div>
+    </main>
+    <!--/Main-->
+</div>
+{%  include "Admin/footer.html" %}

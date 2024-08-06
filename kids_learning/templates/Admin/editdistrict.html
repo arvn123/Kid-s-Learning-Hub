@@ -1,0 +1,45 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+<div class="flex flex-1">
+
+            <!--Main-->
+            <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+
+                <div class="flex flex-col">
+                    <form action="{% url 'editdistrict' district.districtid %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="districtname" placeholder="districtname" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                                   style="width:400px;" value="{{district.districtname}}"><br>
+                        <br>
+                            <button type="submit" class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full" style="width:200px;">Submit</button>
+                        </form>
+
+
+                    <!-- Card Sextion Starts Here -->
+                    <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+
+                        <!-- card -->
+
+                        <div class="rounded overflow-hidden shadow bg-white mx-2 w-full">
+                            <div class="px-6 py-2 border-b border-light-grey">
+                                <div class="font-bold text-xl">districts</div>
+                            </div>
+                            <div class="table-responsive">
+
+                            </div>
+                        </div>
+                        <!-- /card -->
+
+                    </div>
+                     </div>
+            <!-- /Cards Section Ends Here -->
+
+
+        </div>
+    </main>
+    <!--/Main-->
+</div>
+
+                    <br>
+
+{%  include "Admin/footer.html" %}

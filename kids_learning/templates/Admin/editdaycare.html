@@ -1,0 +1,63 @@
+{% load static %}
+{%  include "Admin/header.html" %}
+<div class="flex flex-1">
+
+            <!--Main-->
+            <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+
+                <div class="flex flex-col">
+                    <form action="{% url 'editdaycare' daycare.daycare_id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <br>Bbranch Name: <input type="text" name="branch_name" value="{{daycare.branch_name}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            Email: <input type="email" name="email" value="{{daycare.daycare_email}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            CONTACT NO: <input type="text" name="daycare_contact" value="{{daycare.daycare_contact}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            DESCRIPTION: <textarea name="description" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">{{daycare.description}}</textarea>
+                  <br>
+            <br>
+                        <img src="/images/{{daycare.daycare_image}}" class="ïmg-circle" width="75px" height="75px">
+                            <input type="hidden" name="pimage" value="{{daycare.daycare_image}}">
+                        <br>
+                            <input type="file" class="ïnput-xlarge" name="pimagenew"/>
+            <br>
+            USERNAME: <input type="text" name="username" value="{{daycare.login_id.username}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            PASSWORD: <input type="text" name="password" value="{{daycare.login_id.password}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            Landmark: <input type="text" name="landmark" value="{{daycare.daycare_landmark}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            Pincode: <input type="text" name="pincode" value="{{daycare.daycare_pincode}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            MapLocationAddress: <input type="text" name="map" value="{{daycare.daycare_map}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            Application Fees: <input type="text" name="applicationfees" value="{{daycare.application_fee}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+                        Monthly Fees: <input type="text" name="monthlyfees" value="{{daycare.monthly_fee}}" class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b"
+                   style="width:400px;"><br>
+            <br>
+            <button type="submit"
+                    class="form-control bg-blue-500 hover:bg-blue-800 text-white font-light py-1 px-2 rounded-full"
+                    style="width:200px;">Submit
+            </button>
+        </form>
+  </div>
+            <!-- /Cards Section Ends Here -->
+
+
+        </div>
+            </main>
+            <!--/Main-->
+        </div>
+{%  include "Admin/footer.html" %}
